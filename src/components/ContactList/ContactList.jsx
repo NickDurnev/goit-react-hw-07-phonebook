@@ -1,13 +1,20 @@
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import getFilteredContacts from 'redux/contacts/contacts-selectors';
 import { TransitionGroup } from 'react-transition-group';
+import { setModalOpen } from '../../redux/isOpen/isOpen-actions';
 import { Container } from './ContactList.styled';
 import Contact from 'components/Contact';
 
 const ContactList = ({ data, onClick, animationTimeOut }) => {
   const rootState = useSelector(state => state.rootReducer);
   const filteredContacts = getFilteredContacts(data, rootState);
+  const dispatch = useDispatch();
+
+  const openModalAgreement = id => {
+    dispatch(setModalOpen(true));
+    onClick(id);
+  };
 
   return (
     <Container>
@@ -16,7 +23,7 @@ const ContactList = ({ data, onClick, animationTimeOut }) => {
           <Contact
             key={item.id}
             item={item}
-            onClick={onClick}
+            onClick={id => openModalAgreement(id)}
             animationTimeOut={animationTimeOut}
           />
         ))}

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useAddContactMutation } from 'redux/contacts/contacts-slice';
 import { toast } from 'react-toastify';
@@ -73,6 +74,14 @@ const ContactForm = ({ data }) => {
       </Button>
     </Form>
   );
+};
+
+ContactForm.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default ContactForm;

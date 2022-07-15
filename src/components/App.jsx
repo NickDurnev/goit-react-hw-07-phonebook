@@ -4,18 +4,17 @@ import { ThemeProvider } from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDeleteContactMutation } from '../redux/contacts/contacts-slice';
+import { setDropListOpen } from 'redux/isOpen/isOpen-actions';
 import { useGetContactsQuery } from '../redux/contacts/contacts-slice';
+import { Container, StyledToastContainer } from './App.styled';
+import { light } from '../themes';
+//components imports
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
 import AgreementModal from './AgreementModal';
 import DropList from './DropList';
-import { Container, StyledToastContainer } from './App.styled';
-import { light, dark, blue } from '../themes';
 import Button from './Button';
-import changeTheme from 'redux/theme/theme-actions';
-import { setModalOpen, setDropListOpen } from 'redux/isOpen/isOpen-actions';
 import NoteLoader from './NoteLoader';
 
 export function App() {
@@ -23,7 +22,6 @@ export function App() {
   const animationTimeOut = useRef(parseInt(light.animationDuration));
   const modalRef = useRef(null);
   const dropListRef = useRef(null);
-  const themes = useRef([light, dark, blue]);
 
   const theme = useSelector(({ rootReducer }) => rootReducer.theme);
   const isDropListOpen = useSelector(
@@ -32,10 +30,6 @@ export function App() {
   const isModalOpen = useSelector(
     ({ rootReducer }) => rootReducer.isOpen.modal
   );
-
-  const [deleteContact, result] = useDeleteContactMutation();
-
-  console.log(result);
 
   const dispatch = useDispatch();
 
@@ -52,24 +46,6 @@ export function App() {
   if (error) {
     toast.error(`${error.data}`);
   }
-
-  const checkAgreement = answear => {
-    if (answear) {
-      deleteContact(deleteContactID.current);
-    }
-    toast.success('Contact was deleted');
-    dispatch(setModalOpen(false));
-  };
-
-  const openModalAgreement = id => {
-    deleteContactID.current = id;
-    dispatch(setModalOpen(true));
-  };
-
-  const handleChangeTheme = ({ theme }) => {
-    dispatch(changeTheme(theme));
-    dispatch(setDropListOpen(false));
-  };
 
   const handleClickClose = e => {
     if (e.target === e.currentTarget) {
@@ -96,21 +72,7 @@ export function App() {
           classNames="drop"
           unmountOnExit
         >
-          <DropList ref={dropListRef}>
-            {themes.current.map(theme => {
-              return (
-                <Button
-                  key={theme.name}
-                  onClick={() => {
-                    handleChangeTheme({ theme });
-                  }}
-                  padding="5px 10px"
-                >
-                  {theme.name}
-                </Button>
-              );
-            })}
-          </DropList>
+          <DropList ref={dropListRef}></DropList>
         </CSSTransition>
         <h1>Phonebook</h1>
         <ContactForm data={data} />
@@ -124,7 +86,7 @@ export function App() {
         >
           <ContactList
             data={data}
-            onClick={value => openModalAgreement(value)}
+            onClick={value => (deleteContactID.current = value)}
             animationTimeOut={animationTimeOut.current}
           />
         </CSSTransition>
@@ -135,15 +97,10 @@ export function App() {
           classNames="fade"
           unmountOnExit
         >
-          <AgreementModal ref={modalRef}>
-            <p>Do you really want delete this contact?</p>
-            <Button onClick={() => checkAgreement(false)} padding={'5px 15px'}>
-              No
-            </Button>
-            <Button onClick={() => checkAgreement(true)} padding={'5px 15px'}>
-              Yes
-            </Button>
-          </AgreementModal>
+          <AgreementModal
+            id={deleteContactID.current}
+            ref={modalRef}
+          ></AgreementModal>
         </CSSTransition>
         <StyledToastContainer autoClose={3000} />
       </Container>
