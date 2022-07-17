@@ -11,6 +11,7 @@ import { light } from '../themes';
 //components imports
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
+import ContactInfo from './ContactInfo';
 import Filter from './Filter';
 import AgreementModal from './AgreementModal';
 import DropList from './DropList';
@@ -18,7 +19,7 @@ import Button from './Button';
 import NoteLoader from './NoteLoader';
 
 export function App() {
-  let deleteContactID = useRef(null);
+  let cobtactID = useRef(null);
   const animationTimeOut = useRef(parseInt(light.animationDuration));
   const modalRef = useRef(null);
   const dropListRef = useRef(null);
@@ -28,7 +29,10 @@ export function App() {
     ({ rootReducer }) => rootReducer.isOpen.dropList
   );
   const isModalOpen = useSelector(
-    ({ rootReducer }) => rootReducer.isOpen.modal
+    ({ rootReducer }) => rootReducer.isOpen.agreement
+  );
+  const isContactInfoOpen = useSelector(
+    ({ rootReducer }) => rootReducer.isOpen.contactInfo
   );
 
   const dispatch = useDispatch();
@@ -52,6 +56,8 @@ export function App() {
       dispatch(setDropListOpen(false));
     }
   };
+
+  console.log(data);
 
   return (
     <ThemeProvider theme={theme}>
@@ -86,7 +92,8 @@ export function App() {
         >
           <ContactList
             data={data}
-            onClick={value => (deleteContactID.current = value)}
+            onClick={value => (cobtactID.current = value)}
+            onInfo={value => (cobtactID.current = value)}
             animationTimeOut={animationTimeOut.current}
           />
         </CSSTransition>
@@ -98,9 +105,18 @@ export function App() {
           unmountOnExit
         >
           <AgreementModal
-            id={deleteContactID.current}
+            id={cobtactID.current}
             ref={modalRef}
           ></AgreementModal>
+        </CSSTransition>
+        <CSSTransition
+          nodeRef={modalRef}
+          in={isContactInfoOpen}
+          timeout={animationTimeOut.current}
+          classNames="fade"
+          unmountOnExit
+        >
+          <ContactInfo id={cobtactID.current} data={data} ref={modalRef} />
         </CSSTransition>
         <StyledToastContainer autoClose={3000} />
       </Container>

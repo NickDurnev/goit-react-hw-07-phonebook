@@ -13,6 +13,7 @@ const modalRoot = document.querySelector('#modal-root');
 const AgreementModal = forwardRef(({ id }, ref) => {
   const [deleteContact, result] = useDeleteContactMutation();
   console.log(result);
+  console.log(id);
   const dispatch = useDispatch();
 
   const checkAgreement = answear => {
@@ -23,8 +24,14 @@ const AgreementModal = forwardRef(({ id }, ref) => {
     dispatch(setModalOpen(false));
   };
 
+  const handleClose = e => {
+    if (e.target === e.currentTarget) {
+      dispatch(setModalOpen(false));
+    }
+  };
+
   return createPortal(
-    <Backdrop ref={ref}>
+    <Backdrop ref={ref} onClick={e => handleClose(e)}>
       <Modal>
         <p>Do you really want delete this contact?</p>
         <Button onClick={() => checkAgreement(false)} padding={'5px 15px'}>

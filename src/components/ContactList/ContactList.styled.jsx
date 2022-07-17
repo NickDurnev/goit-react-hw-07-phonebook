@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   .contactsList {
-    max-width: 400px;
+    max-width: 500px;
     margin-right: auto;
     margin-left: auto;
   }

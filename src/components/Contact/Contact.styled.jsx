@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Item = styled.li`
+export const Item = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,4 +11,8 @@ const Item = styled.li`
   border-radius: 5px;
 `;
 
-export default Item;
+export const ButtonWrap = styled.div`
+  width: 120px;
+  display: flex;
+  justify-content: space-between;
+`;

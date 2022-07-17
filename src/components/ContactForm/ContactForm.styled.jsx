@@ -27,9 +27,13 @@ export const Input = styled(InputMask)`
   display: block;
   margin-top: 5px;
   width: 100%;
+  height: 30px;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: 500;
   border: solid 1px;
   border-radius: 5px;
-  color: #918d8da9;
+  color: #a7a3a3a9;
   border-color: ${props => props.theme.bgElementColor};
   background-color: ${props => props.theme.bgColor};
   transition: border-color ${props => props.theme.hoverTransition}

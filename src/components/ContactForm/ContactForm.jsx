@@ -6,7 +6,7 @@ import { Form, Label, Button, Input, Loader } from './ContactForm.styled';
 
 const ContactForm = ({ data }) => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [mobilePhone, setPhone] = useState('');
   const names = data.map(({ name }) => name.toLowerCase());
 
   const [createContact, { isLoading }] = useAddContactMutation();
@@ -32,7 +32,7 @@ const ContactForm = ({ data }) => {
       reset();
       return;
     }
-    createContact({ name, phone });
+    createContact({ name, mobilePhone });
     reset();
     toast.success('Contact was added');
   };
@@ -51,6 +51,7 @@ const ContactForm = ({ data }) => {
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          maxLength="30"
           required
           value={name}
           onChange={handleChange}
@@ -61,10 +62,10 @@ const ContactForm = ({ data }) => {
         <Input
           type="tel"
           name="number"
-          mask="(999)-99-99-99-999"
+          mask="+ 999-99-99-99-999"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          value={phone}
+          value={mobilePhone}
           onChange={handleChange}
         />
       </Label>
