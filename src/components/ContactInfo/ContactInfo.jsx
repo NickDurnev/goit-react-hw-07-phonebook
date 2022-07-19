@@ -104,7 +104,7 @@ const ContactInfo = forwardRef(({ id, data }, ref) => {
                 Name
                 <InfoInput
                   defaultValue={name}
-                  {...register('nameInput', {
+                  {...register('name', {
                     required: 'Name is required.',
                     pattern: /[A-Za-z]{3}/,
                     maxLength: {
@@ -115,7 +115,7 @@ const ContactInfo = forwardRef(({ id, data }, ref) => {
                 />
                 <ErrorMessage
                   errors={errors}
-                  name="nameInput"
+                  name="name"
                   render={({ messages }) =>
                     messages &&
                     Object.entries(messages).map(([type, message]) => (
@@ -129,7 +129,7 @@ const ContactInfo = forwardRef(({ id, data }, ref) => {
                 <InfoInput
                   defaultValue={mobilePhone}
                   mask="+ 999-99-99-99-999"
-                  {...register('mobilePhoneInput', {
+                  {...register('mobilePhone', {
                     required: 'Mobile phone is required.',
                     minLength: {
                       value: 18,
@@ -139,7 +139,7 @@ const ContactInfo = forwardRef(({ id, data }, ref) => {
                 />
                 <ErrorMessage
                   errors={errors}
-                  name="mobilePhoneInput"
+                  name="mobilePhone"
                   render={({ messages }) =>
                     messages &&
                     Object.entries(messages).map(([type, message]) => (
@@ -153,7 +153,7 @@ const ContactInfo = forwardRef(({ id, data }, ref) => {
                 <InfoInput
                   defaultValue={homePhone}
                   mask="+ 999-99-99-99-999"
-                  {...register('homePhoneInput', {})}
+                  {...register('homePhone', {})}
                 />
               </InfoLabel>
               <InfoLabel>
