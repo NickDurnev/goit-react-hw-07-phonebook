@@ -19,7 +19,7 @@ import Button from './Button';
 import NoteLoader from './NoteLoader';
 
 export function App() {
-  let cobtactID = useRef(null);
+  let contactId = useRef(null);
   const animationTimeOut = useRef(parseInt(light.animationDuration));
   const modalRef = useRef(null);
   const dropListRef = useRef(null);
@@ -92,8 +92,8 @@ export function App() {
         >
           <ContactList
             data={data}
-            onClick={value => (cobtactID.current = value)}
-            onInfo={value => (cobtactID.current = value)}
+            onClick={value => (contactId.current = value)}
+            onInfo={value => (contactId.current = value)}
             animationTimeOut={animationTimeOut.current}
           />
         </CSSTransition>
@@ -105,7 +105,7 @@ export function App() {
           unmountOnExit
         >
           <AgreementModal
-            id={cobtactID.current}
+            id={contactId.current}
             ref={modalRef}
           ></AgreementModal>
         </CSSTransition>
@@ -116,7 +116,7 @@ export function App() {
           classNames="fade"
           unmountOnExit
         >
-          <ContactInfo id={cobtactID.current} data={data} ref={modalRef} />
+          <ContactInfo id={contactId.current} data={data} ref={modalRef} />
         </CSSTransition>
         <StyledToastContainer autoClose={3000} />
       </Container>

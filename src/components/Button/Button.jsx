@@ -8,6 +8,7 @@ const Button = ({
   position,
   positionX,
   positionY,
+  bgColor = true,
 }) => (
   <Wrap
     className={position && 'positioned'}
@@ -17,6 +18,7 @@ const Button = ({
     position={position}
     positionX={positionX}
     positionY={positionY}
+    bgColor={bgColor}
   >
     {children}
   </Wrap>
@@ -29,6 +31,7 @@ Button.propTypes = {
   position: PropTypes.string,
   positionX: PropTypes.string,
   positionY: PropTypes.string,
+  bgColor: PropTypes.bool,
 };
 
 export default Button;

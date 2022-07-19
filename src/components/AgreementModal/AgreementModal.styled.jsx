@@ -6,8 +6,8 @@ export const Backdrop = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: ${props => props.theme.backdropColor};
-  color: ${props => props.theme.textColor};
+  background: ${({ theme }) => theme.backdropColor};
+  color: ${({ theme }) => theme.textColor};
   overflow-y: scroll;
 
   &.fade-enter {
@@ -16,8 +16,8 @@ export const Backdrop = styled.div`
 
   &.fade-enter-active {
     opacity: 1;
-    transition: opacity ${props => props.theme.animationDuration}
-      ${props => props.theme.animationTimeFunction};
+    transition: opacity ${({ theme }) => theme.animationDuration}
+      ${({ theme }) => theme.animationTimeFunction};
   }
 
   &.fade-exit {
@@ -26,8 +26,8 @@ export const Backdrop = styled.div`
 
   &.fade-exit-active {
     opacity: 0;
-    transition: opacity ${props => props.theme.animationDuration}
-      ${props => props.theme.animationTimeFunction};
+    transition: opacity ${({ theme }) => theme.animationDuration}
+      ${({ theme }) => theme.animationTimeFunction};
   }
 `;
 
@@ -40,8 +40,8 @@ export const Modal = styled.div`
   padding: 10px;
   border-radius: 5px;
   text-align: center;
-  background-color: ${props => props.theme.bgColor};
-  font-weight: ${props => props.theme.mainTextFontWeight};
+  background-color: ${({ theme }) => theme.bgColor};
+  font-weight: ${({ theme }) => theme.mainTextFontWeight};
 
   & > p {
     margin-bottom: 10px;

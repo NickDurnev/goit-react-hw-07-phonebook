@@ -9,6 +9,10 @@ export const Item = styled.li`
   color: ${props => props.theme.textColor};
   background-color: ${props => props.theme.listItemBcgColor};
   border-radius: 5px;
+
+  & img {
+    width: 48px;
+  }
 `;
 
 export const ButtonWrap = styled.div`

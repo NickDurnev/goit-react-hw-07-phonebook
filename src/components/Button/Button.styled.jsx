@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 const Wrap = styled.button`
   padding: ${props => props.padding};
-  color: ${props => props.theme.elementColor};
-  background-color: ${props => props.theme.bgElementColor};
-  transition: background-color ${props => props.theme.hoverTransition}
-    ${props => props.theme.hoverTimeFunction};
+  color: ${({ theme }) => theme.elementColor};
+  background-color: ${({ bgColor, theme }) =>
+    bgColor ? theme.bgElementColor : 'inherit'};
+  transition: background-color ${({ theme }) => theme.hoverTransition}
+    ${({ theme }) => theme.hoverTimeFunction};
 
   &.positioned {
     position: ${props => props.position};
@@ -15,7 +16,8 @@ const Wrap = styled.button`
 
   &:hover,
   &:focus {
-    background-color: ${props => props.theme.bgElementHoverColor};
+    background-color: ${({ bgColor, theme }) =>
+      bgColor ? theme.bgElementHoverColor : 'inherit'};
   }
 `;
 
